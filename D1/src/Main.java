@@ -11,11 +11,8 @@ public class Main {
             System.out.println("After 1 second: " + time);
 
 
-            time.nextSecond().nextSecond();
-            System.out.println("After 2 more seconds: " + time);
 
-
-            new Time(60, 59, 23); 
+            Time test = new Time(60, 59, 23); 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
