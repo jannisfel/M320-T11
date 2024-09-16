@@ -1,16 +1,23 @@
 package D1.src;
+
 public class Main {
     public static void main(String[] args) {
-        Car myCar = new Car("Toyota", "Corolla", 2021, 0);
-        
-        System.out.println("Brand: " + myCar.getBrand());
-        System.out.println("Model: " + myCar.getModel());
-        System.out.println("Year: " + myCar.getYear());
-        
-        myCar.accelerate();
-        myCar.accelerate();
-        myCar.brake();
-        
-        System.out.println("Current Speed: " + myCar.getSpeed() + " km/h");
+        try {
+
+
+            Time time = new Time(59, 59, 23);
+            System.out.println("Current Time: " + time);
+            time.nextSecond();
+            System.out.println("After 1 second: " + time);
+
+
+            time.nextSecond().nextSecond();
+            System.out.println("After 2 more seconds: " + time);
+
+
+            new Time(60, 59, 23); 
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
