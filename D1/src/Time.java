@@ -39,14 +39,14 @@ public class Time {
         return hour;
     }
 
-    public void setHour(int hour) {
+    void setHour(int hour) {
         if (hour < 0 || hour > 23) {
             throw new IllegalArgumentException("Invalid hour value: " + hour);
         }
         this.hour = hour;
     }
 
-    public void setTime(int second, int minute, int hour) {
+    void setTime(int second, int minute, int hour) {
         setSecond(second);
         setMinute(minute);
         setHour(hour);
