@@ -20,7 +20,7 @@ public class GameBoard {
         pieceRow = 0;
         pieceCol = cols / 2 - 1;
         if (!isValidPosition(currentPiece.getShape(), pieceRow, pieceCol)) {
-            return false; // Game over
+            return false;
         }
         return true;
     }
@@ -120,17 +120,29 @@ public class GameBoard {
                 renderBoard[row][col] = '#';
             }
         }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("\033[H");
+
         for (int i = 0; i < rows; i++) {
-            System.out.print("|");
+            sb.append("\033[").append(i + 1).append(";1H");
+            sb.append("|");
             for (int j = 0; j < cols; j++) {
-                System.out.print(renderBoard[i][j]);
+                sb.append(renderBoard[i][j]);
             }
-            System.out.println("|");
+            sb.append("|");
         }
-        System.out.print("+");
+        sb.append("\033[").append(rows + 1).append(";1H");
+        sb.append("+");
         for (int j = 0; j < cols; j++) {
-            System.out.print("-");
+            sb.append("-");
         }
-        System.out.println("+");
+        sb.append("+");
+
+        sb.append("\033[").append(rows + 2).append(";1H");
+        sb.append("Controls: A-Left D-Right W-Rotate S-Down Q-Quit");
+
+        System.out.print(sb.toString());
+        System.out.flush();
     }
 }

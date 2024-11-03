@@ -2,10 +2,13 @@ public class TetrisGame {
     private GameBoard board;
     private InputHandler inputHandler;
     private boolean isRunning;
+    private long lastTime;
+    private int delay;
 
     public TetrisGame() {
-        board = new GameBoard(20, 10); // 20 rows x 10 columns
+        board = new GameBoard(20, 10);
         inputHandler = new InputHandler();
+        delay = 500;
     }
 
     public void start() {
@@ -17,19 +20,19 @@ public class TetrisGame {
             e.printStackTrace();
         } finally {
             inputHandler.stopHandler();
-            ConsoleUtils.showCursor(); // Show the cursor when exiting
+            ConsoleUtils.showCursor();
         }
     }
 
     private void gameLoop() throws Exception {
-        ConsoleUtils.hideCursor(); // Hide the cursor at the start
-        long lastTime = System.currentTimeMillis();
-        int delay = 500; // milliseconds
+        ConsoleUtils.hideCursor();
+        lastTime = System.currentTimeMillis();
 
         while (isRunning) {
             if (inputHandler.hasInput()) {
                 int input = inputHandler.getInput();
                 handleInput(input);
+                render();
             }
 
             long currentTime = System.currentTimeMillis();
@@ -38,8 +41,6 @@ public class TetrisGame {
                 render();
                 lastTime = currentTime;
             }
-
-            // Small sleep to prevent high CPU usage
             Thread.sleep(10);
         }
     }
@@ -53,10 +54,12 @@ public class TetrisGame {
                 board.moveRight();
                 break;
             case 's':
+            case 'S':
+            case 66:
                 board.moveDown();
+                lastTime = System.currentTimeMillis();
                 break;
             case 'w':
-
                 board.rotate();
                 break;
             case 'q':
@@ -78,8 +81,6 @@ public class TetrisGame {
 
     private void render() {
         ConsoleUtils.clearScreen();
-        ConsoleUtils.moveCursor(0, 0);
         board.render();
-        System.out.println("Controls: A-Left D-Right W-Rotate S-Down Q-Quit");
     }
 }

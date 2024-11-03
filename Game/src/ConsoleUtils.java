@@ -1,11 +1,6 @@
 public class ConsoleUtils {
     public static void clearScreen() {
-        System.out.print("\033[2J"); // Clear screen
-        System.out.flush();
-    }
-
-    public static void moveCursor(int row, int col) {
-        System.out.printf("\033[%d;%dH", row + 1, col + 1);
+        System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 

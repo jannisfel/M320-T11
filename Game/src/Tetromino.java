@@ -67,6 +67,6 @@ public class Tetromino {
     }
 
     public int getType() {
-        return type + 1; // To avoid zero
+        return type + 1;
     }
 }

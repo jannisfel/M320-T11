@@ -12,7 +12,7 @@ public class InputHandler extends Thread {
         in = System.in;
         try {
             setTerminalToRawMode();
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -28,7 +28,7 @@ public class InputHandler extends Thread {
                         hasInput = true;
                     }
                 } else {
-                    Thread.sleep(50); // Prevent busy waiting
+                    Thread.sleep(50);
                 }
             }
         } catch (IOException | InterruptedException e) {
@@ -38,7 +38,9 @@ public class InputHandler extends Thread {
                 restoreTerminal();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
         }
     }
 
@@ -53,25 +55,22 @@ public class InputHandler extends Thread {
 
     public void stopHandler() {
         running = false;
+        try {
+            restoreTerminal();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void setTerminalToRawMode() throws IOException {
+    private void setTerminalToRawMode() throws IOException, InterruptedException {
         String[] cmd = { "/bin/sh", "-c", "stty raw -echo </dev/tty" };
-        try {
-            Runtime.getRuntime().exec(cmd).waitFor();
-        } catch (InterruptedException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        Process p = Runtime.getRuntime().exec(cmd);
+        p.waitFor();
     }
 
-    private void restoreTerminal() throws IOException {
+    private void restoreTerminal() throws IOException, InterruptedException {
         String[] cmd = { "/bin/sh", "-c", "stty cooked echo </dev/tty" };
-        try {
-            Runtime.getRuntime().exec(cmd).waitFor();
-        } catch (InterruptedException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        Process p = Runtime.getRuntime().exec(cmd);
+        p.waitFor();
     }
 }
