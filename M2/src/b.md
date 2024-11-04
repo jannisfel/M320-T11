@@ -1,1 +1,2 @@
-Der Benutzer versucht, den Durchschnitt der Klasse anzuzeigen, ohne zuvor einen Studenten hinzuzufügen. Das Programm erkennt, dass keine Studenten in der Klasse vorhanden sind und berechnet daher keinen Durchschnitt. Stattdessen gibt es eine Meldung aus, die den Benutzer informiert, dass keine Studenten zur Berechnung vorhanden sind, oder zeigt den Klassendurchschnitt als „0.00“ an. Dieser Sonderfall stellt sicher, dass das Programm auch ohne Daten ordnungsgemäss reagiert und den Benutzer verständlich informiert.
+1. displayGrades: Main startet die Anfrage, die Noten anzuzeigen.
+2. Keine rückgabe aber ausgabe von der nachricht
