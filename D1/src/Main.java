@@ -3,8 +3,6 @@ package D1.src;
 public class Main {
     public static void main(String[] args) {
         try {
-
-
             Time time = new Time(59, 59, 23);
             System.out.println("Current Time: " + time);
             time.nextSecond();
