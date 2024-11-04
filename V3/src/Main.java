@@ -5,10 +5,13 @@ public class Main {
         Figur krieger = new AxtKrieger("Thor");
         krieger.kaempfen();
 
-        Figur magier = new StabMagier("Merlni");
+        Figur magier = new StabMagier("Merlin");
         magier.kaempfen();
 
         Figur schurke = new DolchSchurke("Loki");
+        schurke.kaempfen();
+
+        schurke.setWaffe(new AxtVerhalten());
         schurke.kaempfen();
     }
 }
